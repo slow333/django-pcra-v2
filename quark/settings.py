@@ -17,11 +17,15 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
-    'blog.apps.BlogConfig',
-    'moon.apps.MoonConfig',
-    'docs.apps.DocsConfig',
-    'atom.apps.AtomConfig',
+    'users',
+    'blog',
+    'moon',
+    'atom',
+    'docs',
+    'aistore',
+    'tags',
+    'likes',
+    'playground',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -88,7 +92,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+# admin site를 한글로 보이게 함
+LANGUAGE_CODE = 'Ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 # TIME_ZONE = 'UTC'

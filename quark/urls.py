@@ -29,7 +29,9 @@ urlpatterns = [
     path('apps/idol/', include('moon.urls')),
     path('apps/blog/', include('blog.urls')),
     path('apps/pcra/', include('atom.urls')),
+    path('apps/aistore/', include('aistore.urls')),
     path('docs/', include('docs.urls')),
+    path('playground/', include('playground.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

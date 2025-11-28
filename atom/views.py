@@ -1,10 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render # type: ignore
 
-def home(request):
-    return HttpResponse("<h1>HOME Health check</h1>")
-
-
-def about(request):
-    return HttpResponse("<h1>ABOUT Health check</h1>")
-
+def pcra_home(request):
+    return render(request, 'pcra/pcra-home.html')

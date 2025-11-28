@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path # type: ignore
 from . import views
 
 # apps/blog/
@@ -10,4 +10,3 @@ urlpatterns = [
     path('<int:pk>/detail', views.blog_detail, name='post-detail'),
     path('<str:username>/user-posts', views.blog_user_posts, name='user-posts'),
 ]
-
