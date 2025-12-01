@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.contents, name='docs-contents'),
     path('django/setup', views.django_setup, name='django-setup'),
+    path('django/orm', views.django_orm, name='django-orm'),
 
     path('flask/install', views.flask_install, name='docs-flask-install'),
     path('flask/note', views.flask_note, name='docs-flask-note'),

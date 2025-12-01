@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     'aistore',
     'tags',
     'likes',
-    'playground',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -35,9 +34,11 @@ INSTALLED_APPS = [
     # Crispy Forms
     'crispy_forms',
     'crispy_bootstrap5',
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +48,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+DEBUG_TOOLBAR_CONFIG = {
+    # Set a high z-index to ensure the toolbar appears above other elements.
+    'RESULTS_CACHE_SIZE': 100,
+}
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 ROOT_URLCONF = 'quark.urls'
 
 TEMPLATES = [
@@ -128,3 +137,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ml.python.ai@gmail.com'
 EMAIL_HOST_PASSWORD = 'dtty tgfa lxzm bhue'
+

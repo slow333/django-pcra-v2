@@ -1,4 +1,60 @@
 {% extends "base.html" %}
+{% load aistore_tags %}
 {% block content %}
-  <h1>AI Store Home</h1>
+    <h1>Hello, {{ name }}!</h1>
+        {% for tag in test_query %}
+        <p>{{ tag }} </p>
+        {% endfor %}
+    <form method="get" class="d-flex gap-2 mb-4">
+        {{ search_form.search_title }}
+        <button type="submit" class="btn btn-outline-primary" style="width:auto;margin-left:auto;">검색</button>
+        {% if search_title %}
+        <a href="{% url 'aistore-home' %}" class="btn btn-outline-secondary" style="width:auto">초기화</a>
+        {% endif %}
+    </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <a href="{% build_sort_url 'title' sort order search_title %}">
+                        Product Name
+                        {% if sort == 'title' %}{% if order == 'asc' %}▲{% else %}▼{% endif %}{% endif %}
+                    </a>
+                </th>
+                <th>
+                    <a href="{% build_sort_url 'unit_price' sort order search_title %}">
+                        Unit Price
+                        {% if sort == 'unit_price' %}{% if order == 'asc' %}▲{% else %}▼{% endif %}{% endif %}
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in page_obj %}
+            <tr>
+                <td>{{ product.title }}</td>
+                <td>${{ product.unit_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if page_obj %}
+        {% if page_obj.has_previous %}
+            <a href="{% build_page_url 1 search_title sort order %}"  class="btn btn-outline-info mb-4">&laquo;</a>
+            <a href="{% build_page_url page_obj.previous_page_number search_title sort order %}" class="btn btn-outline-info mb-4">&lt;</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a href="{% build_page_url num search_title sort order %}" class="btn btn-info mb-4">{{num}}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="{% build_page_url num search_title sort order %}" class="btn btn-outline-info mb-4">{{num}}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a href="{% build_page_url page_obj.next_page_number search_title sort order %}" class="btn btn-outline-info mb-4">&gt;</a>
+            <a href="{% build_page_url page_obj.paginator.num_pages search_title sort order %}" class="btn btn-outline-info mb-4">&raquo;</a>
+        {% endif %}
+    {% endif %}
+
 {% endblock %}

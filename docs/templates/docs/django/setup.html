@@ -5,6 +5,28 @@
   
 {% block content %}
 <section>
+    <h2>Step to start project</h2>
+    <ol>
+        <li>create project: django-admin startproject projectname</li>
+        <li>create app: python manage.py startapp appname</li>
+        <li>run server: python manage.py runserver</li>
+        <li>create superuser: python manage.py createsuperuser</li>
+        <li>make migration: python manage.py makemigrations</li>
+        <li>apply migration: python manage.py migrate</li>
+        <li>collect static files: python manage.py collectstatic</li>
+        <li>test db connection: python manage.py dbshell</li>
+    </ol>
+    <h2>Make Project</h2>
+    <ol>
+        <li>Model : class 생성</li>
+        <li>Model relation 설정</li>
+        <li>mok data 생성</li>
+        <li>admin.py 에 model 등록</li>
+        <li>settings.py 에 app 등록</li>
+        <li>views.py 에 view 생성</li>
+        <li>urls.py 에 path 설정</li>
+        <li>makemigrations & migrate</li>
+    </ol>
     <h2>wsl(linux, 우분투)에서 django 설치하고 실행하기</h2>
     <h3>방화벽 연결(db)</h3>
   <pre>apt install ufw
@@ -36,9 +58,32 @@ sudo systemctl restart postgresql
 
 - 연결 시험
 psql -h localhost -U postgres -W
-python manage.py migrate
-
+python manage.py migrate</pre>
+    <h3>django debug-debug-toolbar 설치</h3>
+<pre>pip install django-debug-toolbar # 이러면 import error 남
+    python -m pip install django-debug-toolbar # 이렇게 해야함</pre>
+    <h4>settings.py 설정</h4>
+<pre>INSTALLED_APPS = [
+    ...
+    'debug_toolbar',
+]
+MIDDLEWARE = [
+    ...
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 </pre>
+    <h4>urls.py 설정</h4>
+<pre>from django.conf import settings
+from django.conf.urls import include
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+</pre>  
     <h3>json 파일을 db에 적용하기</h3>
 <pre>import json
 with open('blog/post_data.json', 'r') as f:

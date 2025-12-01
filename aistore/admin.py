@@ -1,16 +1,17 @@
 from django.contrib import admin
 from .models import Address, Cart, CartItem, Customer, Order, OrderItem, Product, Collection, Promotion
 
-# Register your models here.
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'unit_price', 'inventory', 'last_update']
+    list_display = ['title', 'unit_price', 'inventory']
     list_editable = ['unit_price', 'inventory']
+    search_fields = ['title__istartswith']
     list_per_page = 10
 
 @admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
     list_display = ['title', 'featured_product']
+    list_editable = ['featured_product']
     list_per_page = 10
 
 @admin.register(Promotion)
@@ -25,7 +26,10 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name', 'email', 'phone', 'birth_day', 'membership']
+    list_display = ['first_name', 'last_name', 'email', 'membership']
+    list_editable = ['membership']
+    ordering = ['first_name', 'last_name']
+    search_fields = ['first_name__istartswith', 'last_name__istartswith']
     list_per_page = 10
 
 @admin.register(Order)

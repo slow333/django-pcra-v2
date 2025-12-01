@@ -11,6 +11,8 @@ def contents(requst):
 def django_setup(requst):
     return render(requst, 'docs/django/setup.html')
 
+def django_orm(requst):
+    return render(requst, 'docs/django/django-orm.html')
 # ============= flask ========================
 def flask_install(requst):
     return render(requst, 'docs/flask/install.html')

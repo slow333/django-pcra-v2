@@ -1,22 +1,34 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Post
-from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from .models import Post
+from .forms import PostForm
+from quark.forms import SearchForm
 
 def blog_home(request, posts=None):
     if posts:
         post_list = posts
     else:
         post_list = Post.objects.order_by('-date_posted').all()
+    
+    # 검색 폼 처리
+    search_form = SearchForm(request.GET or None)
+    search_title = request.GET.get('search_title', '')
+    
+    if search_title:
+        post_list = post_list.filter(title__icontains=search_title)
 
-    paginator = Paginator(post_list, 4) # 한 페이지에 8개씩 표시
+    paginator = Paginator(post_list, 4) # 한 페이지에 4개씩 표시
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {'page_obj': page_obj}
+    context = {
+        'page_obj': page_obj,
+        'search_form': search_form,
+        'search_title': search_title,
+    }
 
     return render(request, 'blog/home.html', context)
 

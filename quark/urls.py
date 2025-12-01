@@ -5,7 +5,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
 from blog import views as blog_views
+# from debug_toolbar.toolbar import debug_toolbar_urls
+import debug_toolbar
 
+admin.site.site_header = "APP(PCRM) 관리자 페이지" # H1 헤더 및 로그인 양식 상단 텍스트
+admin.site.site_title = "사이트 관리" # 브라우저 페이지 <title> 태그 접미사
+admin.site.index_title = "관리자 대시보드에 오신 것을 환영합니다" 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +36,7 @@ urlpatterns = [
     path('apps/pcra/', include('atom.urls')),
     path('apps/aistore/', include('aistore.urls')),
     path('docs/', include('docs.urls')),
-    path('playground/', include('playground.urls')),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
