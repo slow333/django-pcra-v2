@@ -41,3 +41,5 @@ with open('blog/post_data.json', 'r') as f:
 for p in posts_json:
   post = Post(title=p['title'], content=p['content'], author_id = p['user_id'])
   post.save()
+
+autocomplete_fields = ( "author")
