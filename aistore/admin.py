@@ -7,6 +7,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ['unit_price', 'inventory']
     search_fields = ['title__istartswith']
     list_per_page = 10
+    prepopulated_fields = { "slug": ("firstname","lastname")}
 
 @admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
